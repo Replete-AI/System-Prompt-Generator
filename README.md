@@ -8,7 +8,7 @@
 
 I ended up using this to create [Pneuma](https://huggingface.co/Replete-AI/Pneuma), which is a series of models that have been trained on data representing experiences and interactions. I generated the conversations and found some regularization data on huggingface which I reformatted and then combined with the data I generated. However, all datasets just use a basic "You are an AI assistant" system prompt. I don't like that, I don't need an assistant...so I needed to change the system prompt to something a little more creative and fun. Of course, this script can be modified to generate any kind of system prompt you want.
 </div>
-<div>
+
 ## Note: This script is made for ShareGPT format data. Make sure your data is in this format before trying to change your system prompts. Here's an example of the data I used:
 
 ```json
@@ -59,7 +59,6 @@ I included a script to count the amount of tokens in the dataset, as well as a s
 I created mixup.py because my regularization data is a combination of like 7 different datasets, and I wanted them to be properly mixed up so that it would work properly as regularization. If I didn't do this it would be more like training with different datasets enabled in axolotl rather than using one big dataset.
 
 I also have a dataset to reformat DPO data into instruct data so that you can use datasets like Intel/orca_dpo_pairs as your regularization data. Also their rejected outputs in that dataset are really low quality so it honestly works better as just instruct data, anyways.
-</div>
 The combine script is for if you split your dataset up, like I did. I used it to combine the folder I was storing my final dataset shards in. Then I used mixup.py to shuffle the lines of the combined dataset a couple of times.
 
 ## Enjoy!
