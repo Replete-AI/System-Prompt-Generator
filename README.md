@@ -1,6 +1,6 @@
 <div align="center">
 
-# <span style="color: #555;"># System Prompt Generator in ShareGPT format</span>
+# <span style="color: #555;">System Prompt Generator in ShareGPT format</span>
 
 ## - and a couple of other useful little python scripts. 🙂
 
