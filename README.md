@@ -8,7 +8,7 @@
 
 I ended up using this to create [Pneuma](https://huggingface.co/Replete-AI/Pneuma), which is a series of models that have been trained on data representing experiences and interactions. I generated the conversations and found some regularization data on huggingface which I reformatted and then combined with the data I generated. However, all datasets just use a basic "You are an AI assistant" system prompt. I don't like that, I don't need an assistant...so I needed to change the system prompt to something a little more creative and fun. Of course, this script can be modified to generate any kind of system prompt you want.
 </div>
-
+---
 ## Note: This script is made for ShareGPT format data. Make sure your data is in this format before trying to change your system prompts. Here's an example of the data I used:
 
 ```json
