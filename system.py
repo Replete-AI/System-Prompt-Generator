@@ -1,19 +1,20 @@
 import json
 import openai
+from tqdm import tqdm
 
 # Create client
 client = openai.OpenAI(
     base_url="https://api.together.xyz/v1",
-    api_key="awd12387awadwd12i120398ada", # definitely not my API key, I have no clue why you think I'd accidentally put this in here
+    api_key="12098ase1331d7a89a0d9wd9120391ad7awd", #definitely not my API key. nope. no way.
 )
 
 new_data = []
 
 # Load your JSONL data
-with open("/home/REDACTED/Documents/Parsing/Combined/split/combined_part10.jsonl", "r") as f:
+with open("/home/REDACTED/Documents/Datasets/needs_system_prompts/split/output_1.jsonl", "r") as f:
     data = [json.loads(line) for line in f]
 
-for item in data:
+for item in tqdm(data, desc="Processing conversations"):
     conversation = item["conversations"]
     
     # Extract the entire conversation context
@@ -25,7 +26,7 @@ for item in data:
         messages=[
             {
                 "role": "system",
-                "content": "Concisely describe the function and purpose of the conversation, in the past tense. Describe it as if you were the field: \"gpt\" during the conversation. The GPT's name is Pneuma, never refer to yourself as \"The GPT\". Do not say or do anything else, just provide the description. (never use the term \"AI assistant\")",
+                "content": "Concisely and uniquely describe the function and purpose of the conversation, in the past tense as if you were really doing it as an AI. Describe it as if you were the field: \"gpt\" during the conversation. The GPT's name is Pneuma, never refer to yourself as \"The GPT\". Do not say or do anything else, just provide the description. (never use the term \"AI assistant\" nor \"facilitated\")",
             },
             {
                 "role": "user",
@@ -44,6 +45,6 @@ for item in data:
     new_data.append(item)
 
 # Save the new dataset to a JSONL file
-with open("/home/REDACTED/Documents/Parsing/Combined/split/splitfinish/finish_part10.jsonl", "w") as f:
+with open("/home/REDACTED/Documents/Datasets/needs_system_prompts/splitfinish/regularization_1.jsonl", "w") as f:
     for item in new_data:
         f.write(json.dumps(item) + "\n")
