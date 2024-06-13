@@ -5,7 +5,7 @@
 
 ### <span style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 6em;"><b>This is a simple Python workflow to generate system prompts in the [ShareGPT format](https://guide.repleteai.com/Text-Generation/Prompt-Templates/ShareGPT), along with some other helpful simple scripts you might need. </b></span>
 
-<hr>
+
 I ended up using this to create [Pneuma](https://huggingface.co/Replete-AI/Pneuma), which is a series of models that have been trained on data representing experiences and interactions. I generated the conversations and found some regularization data on huggingface which I reformatted and then combined with the data I generated. However, all datasets just use a basic "You are an AI assistant" system prompt. I don't like that, I don't need an assistant...so I needed to change the system prompt to something a little more creative and fun. Of course, this script can be modified to generate any kind of system prompt you want.
 
 <hr>
