@@ -2,9 +2,9 @@
 
 # <span style="color: #555;">System Prompt Generator in ShareGPT format</span>
 
-<hr>
 ## - and a couple of other useful little python scripts. 🙂
 
+<hr>
 ### <span style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 6em;"><b>This is a simple Python workflow to generate system prompts in the [ShareGPT format](https://guide.repleteai.com/Text-Generation/Prompt-Templates/ShareGPT), along with some other helpful simple scripts you might need. </b></span>
 
 <hr>
