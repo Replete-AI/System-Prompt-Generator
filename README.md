@@ -50,7 +50,7 @@ I used meta-llama/Llama-3-70b-chat-hf for the generation of my system prompts. I
 
 ### Test the script
 
-You wanna make sure that your system prompt is good for your use case. So, I'd take like 5-10 lines of your original dataset, make a test_dataset.jsonl file, and set that as your input file. Then I'd run `system.py` in my terminal and see what the output looks like. If you're happy with the system prompts it generated for you, then feel free to try it with your whole dataset.
+You wanna make sure that your system prompt is good for your use case. So, I'd take like 5-10 lines of your original dataset, make a test_dataset.jsonl file, and set that as your input file. Then I'd run `system.py` in my terminal and if it's set up properly, there will be a little progress bar in the terminal to keep you updated on the job. If you're happy with the system prompts it generated for you, then feel free to try it with your whole dataset.
 
 ### Extra scripts
 
