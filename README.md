@@ -27,7 +27,7 @@ First, you want to use git to clone the repository and then run `pip install -r 
 
 It's just going to install openai, as that's all this script needed. You might need to follow instructions in your terminal to get a specific version of openai.
 
-### Optional split.py script
+### (Optional) split.py script
 
 If you have an insanely large dataset, it might help to use split.py to divide them out evenly into ten separate files and then copy your system.py file a couple of times. This way you can triple the speed of the generations across different accounts with different API keys.
 
