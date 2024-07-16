@@ -1,50 +1,65 @@
 import json
 import openai
+import time
 from tqdm import tqdm
 
 # Create client
 client = openai.OpenAI(
-    base_url="https://api.together.xyz/v1",
-    api_key="12098ase1331d7a89a0d9wd9120391ad7awd", #definitely not my API key. nope. no way.
+    base_url="https://api.groq.com/openai/v1",
+    api_key="gsk_Not_My_API",
 )
 
-new_data = []
-
 # Load your JSONL data
-with open("/home/REDACTED/Documents/Datasets/needs_system_prompts/split/output_1.jsonl", "r") as f:
+with open("/home/kquant/Documents/Code/dataset-stuff/system_prompt_gen_split/system_prompt_generator/generated_conversations.jsonl", "r") as f:
     data = [json.loads(line) for line in f]
 
-for item in tqdm(data, desc="Processing conversations"):
-    conversation = item["conversations"]
-    
-    # Extract the entire conversation context
-    conversation_context = " ".join([msg["value"] for msg in conversation])
+# Open the output file for writing
+with open("/home/kquant/Documents/Code/dataset-stuff/system_prompt_gen_split/system_prompt_generator/nemotron-final.jsonl", "w") as f:
+    for item in tqdm(data, desc="Processing conversations"):
+        conversation = item["conversations"]
+        
+        # Extract the entire conversation context
+        conversation_context = " ".join([msg["value"] for msg in conversation])
 
-    # Call the LLM to generate a new system prompt
-    chat_completion = client.chat.completions.create(
-        model="meta-llama/Llama-3-70b-chat-hf",
-        messages=[
-            {
-                "role": "system",
-                "content": "Concisely and uniquely describe the function and purpose of the conversation, in the past tense as if you were really doing it as an AI. Describe it as if you were the field: \"gpt\" during the conversation. The GPT's name is Pneuma, never refer to yourself as \"The GPT\". Do not say or do anything else, just provide the description. (never use the term \"AI assistant\" nor \"facilitated\")",
-            },
-            {
-                "role": "user",
-                "content": f"Context: {conversation_context}",
-            },
-        ],
-    )
+        # Create the user prompt with the system prompt and conversation context
+        user_prompt = f"Concisely describe the function and purpose of the conversation, in the past tense. Describe it as if you were the field: \"gpt\" during the conversation. The GPT's name is Pneuma, never refer to yourself as \"The GPT\". Do not say or do anything else, just provide the description. (never use the term \"AI assistant\")\n\nContext: {conversation_context}"
 
-    generated_system_prompt = chat_completion.choices[0].message.content
+        # Retry the API call up to 3 times
+        retry_count = 0
+        while retry_count < 3:
+            try:
+                # Call the LLM to generate a new system prompt
+                chat_completion = client.chat.completions.create(
+                    messages=[
+                        {
+                            "role": "user",
+                            "content": user_prompt
+                        }
+                    ],
+                    model="llama3-8b-8192",
+                )
+                break  # Break the loop if the API call succeeds
+            except openai.InternalServerError as e:
+                print(f"Error occurred: {e}")
+                retry_count += 1
+                if retry_count < 3:
+                    print(f"Retrying in 70 seconds... (Attempt {retry_count})")
+                    time.sleep(70)  # Pause for 70 seconds before retrying
+                else:
+                    print("Max retries reached. Skipping this conversation.")
+                    continue  # Skip to the next conversation if max retries reached
 
-    # Find and replace the original system prompt with the generated one
-    system_message = next((msg for msg in conversation if msg["from"] == "system"), None)
-    if system_message:
-        system_message["value"] = generated_system_prompt
+        if retry_count == 3:
+            continue  # Skip to the next conversation if max retries reached
 
-    new_data.append(item)
+        generated_system_prompt = chat_completion.choices[0].message.content
 
-# Save the new dataset to a JSONL file
-with open("/home/REDACTED/Documents/Datasets/needs_system_prompts/splitfinish/regularization_1.jsonl", "w") as f:
-    for item in new_data:
+        # Add the generated system prompt to the beginning of the conversation
+        conversation.insert(0, {"from": "system", "value": generated_system_prompt})
+
+        # Write the modified item to the JSONL file immediately
         f.write(json.dumps(item) + "\n")
+        f.flush()  # Ensure the data is written to disk
+
+        # Rate limiting: Pause for 1 second after each request to stay within the 6k tokens per minute limit
+        time.sleep(1)
