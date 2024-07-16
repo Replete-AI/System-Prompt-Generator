@@ -33,7 +33,7 @@ If you have an insanely large dataset, it might help to use split.py to divide t
 
 ### API key
 
-In line 7, place your Together.ai API key into the quotes.
+In line 7, place your Groq API key into the quotes.
 
 ### Specify the path to your dataset
 
@@ -41,11 +41,11 @@ In line 13, paste the path to your dataset on your machine in the quotes.
 
 ### Create an output file and specify it
 
-Create an output.jsonl file and then paste the location of it into the quotes on line 47.
+Create an output.jsonl file and then paste the location of it into the quotes on line 17.
 
 ### Modify the system prompt
 
-As I said earlier in this readme, I made this script for a model called Pneuma, so in line 28 you will want to modify the system prompt from the one that I was using.
+As I said earlier in this readme, I made this script for a model called Pneuma, so in line 25 you will want to modify the system prompt from the one that I was using.
 
 ### Specify the model you'd like to use
 
@@ -59,7 +59,7 @@ You wanna make sure that your system prompt is good for your use case. So, I'd t
 
 I included a script to count the amount of tokens in the dataset, as well as a script to shuffle the lines in the dataset, named mixup.py.
 
-I created mixup.py because my regularization data is a combination of like 7 different datasets, and I wanted them to be properly mixed up so that it would work properly as regularization. If I didn't do this it would be more like training with different datasets enabled in axolotl rather than using one big dataset.
+I created mixup.py because my regularization data is a combination of like 14 different datasets, and I wanted them to be properly mixed up so that it would work properly as regularization. If I didn't do this it would be more like training with different datasets enabled in axolotl rather than using one big dataset.
 
 I also have a dataset to reformat DPO data into instruct data so that you can use datasets like Intel/orca_dpo_pairs as your regularization data. Also their rejected outputs in that dataset are really low quality so it honestly works better as just instruct data, anyways.
 The combine script is for if you split your dataset up, like I did. I used it to combine the folder I was storing my final dataset shards in. Then I used mixup.py to shuffle the lines of the combined dataset a couple of times.
