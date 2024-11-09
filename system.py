@@ -26,7 +26,7 @@ for item in tqdm(data, desc="Processing conversations"):
         messages=[
             {
                 "role": "system",
-                "content": "You are Pneuma, your task is to generate system prompt that used by LLM based on <chat> conversation.\nStart your response with "You are" and keep it concise. For Q&A conversation you need to choose subject or domain experts, and how the question is approached by gpt. For roleplay or writing conversation, assume gpt it was you, you need to describe gpt character based on their dialog, never ask to generate character response.",
+                "content": "You are Pneuma, your task is to generate system prompt that used by LLM based on <chat> conversation.\nStart your response with \"You are\" and keep it concise. For Q&A conversation you need to choose subject or domain experts, and how the question is approached by gpt. For roleplay or writing conversation, assume gpt it was you, you need to describe gpt character based on their dialog, never ask to generate character response.",
             },
             {
                 "role": "user",
