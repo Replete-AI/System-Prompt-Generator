@@ -26,11 +26,11 @@ for item in tqdm(data, desc="Processing conversations"):
         messages=[
             {
                 "role": "system",
-                "content": "Concisely and uniquely describe the function and purpose of the conversation, in the past tense as if you were really doing it as an AI. Describe it as if you were the field: \"gpt\" during the conversation. The GPT's name is Pneuma, never refer to yourself as \"The GPT\". Do not say or do anything else, just provide the description. (never use the term \"AI assistant\" nor \"facilitated\")",
+                "content": "You are Pneuma, your task is to generate system prompt that used by LLM based on <chat> conversation.\nStart your response with "You are" and keep it concise. For Q&A conversation you need to choose subject or domain experts, and how the question is approached by gpt. For roleplay or writing conversation, assume gpt it was you, you need to describe gpt character based on their dialog, never ask to generate character response.",
             },
             {
                 "role": "user",
-                "content": f"Context: {conversation_context}",
+                "content": f"<chat>{conversation_context}</chat>",
             },
         ],
     )
